@@ -12,12 +12,6 @@ This is the original installation method from the forked project. It convenientl
 
 .. code-block:: bash
 
-    bash -c "$(wget https://raw.githubusercontent.com/nebular/docker-compiler-ffmpeg/master/install.sh -O -)"
-
-or
-
-.. code-block:: bash
-
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/nebular/docker-compiler-ffmpeg/master/install.sh)"
 
 Running by cloning
@@ -61,6 +55,4 @@ Other
 Dependencies
 ============
 
-- Docker: `installation instructions <https://docs.docker.com/engine/installation/>`_
-- The install script assumes you have set up docker to be run with `non-root access <https://docs.docker.com/install/linux/linux-postinstall/>`_. If you would rather not configure this, simply download the install.sh script and execute it as root (you'll then need to manually chown the binaries to that of your user account)
-
+- A Docker installation is needed.
