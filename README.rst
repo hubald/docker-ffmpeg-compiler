@@ -2,8 +2,8 @@ Docker Ffmpeg Srt Compiler
 ==========================
 
 Docker Ffmpeg Srt Compiler is a zero-set-up solution to install a fully featured ffmpeg binary on a linux system.
-It is a copycat of https://github.com/srwareham/docker-ffmpeg-compiler (browse there for anhanced instructions),
-but also adds HayVision libSRT support.
+All credit goes to the original author in https://github.com/srwareham/docker-ffmpeg-compiler (browse there for anhanced instructions),
+but this fork also adds HayVision libSRT support and a couple naming conventions for my build system.
 
 Running without cloning
 -----------------------
