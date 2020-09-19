@@ -49,7 +49,9 @@ RUN set -x \
 && make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
-&& echo COMPLETED PART 2
+&& echo "COMPLETED PART 2 (x265)"
+
+# Install mp3lame + opus
 
 RUN set -x \
 && echo install libmp3lame \
@@ -62,7 +64,21 @@ RUN set -x \
 && PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
-&& make clean
+&& make clean \
+&& echo "COMPLETED PART 3a (vpx)"
+
+# Install libsrt
+
+RUN set -x \
+&& echo install libsrt \
+&& apt-get -y install tclsh cmake libssl-dev \
+&& cd ~/ffmpeg_sources \
+&& git clone https://github.com/Haivision/srt \
+&& cd srt \
+&& ./configure \
+&& make \
+&& make install \
+&& echo "COMPLETED PART 3b (libsrt)"
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
@@ -88,6 +104,7 @@ RUN cd ~/ffmpeg_sources \
   --enable-libvpx \
   --enable-libx264 \
   --enable-libx265 \
+  --enable-libsrt \
   --enable-nonfree \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \

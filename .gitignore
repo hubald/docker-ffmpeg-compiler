@@ -3,3 +3,6 @@
 
 # OS Files
 .DS_STORE
+
+# output
+out
