@@ -1,15 +1,8 @@
 FROM ubuntu:16.04
 
 # Container for compiling ffmpeg and copying ffmpeg, ffprobe, and ffserver to the host operating system.
-# If the host OS is not linux, another container could instead use the binary.
 
-# Example build
-# docker build -t ffmpeg-compiler .
-
-# Example run
-# docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /root/bin/ffserver /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe && chown $(id -u):$(id -g) /host/ffserver"
-
-MAINTAINER srwareham
+MAINTAINER nebular
 
 # Get the dependencies
 RUN set -x \
