@@ -12,7 +12,7 @@ This is the original installation method from the forked project. It convenientl
 
 .. code-block:: bash
 
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/nebular/docker-compiler-ffmpeg/master/install.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/nebular/docker-build-ffmpeg-srt/master/install.sh)"
 
 Running by cloning
 -------------------
@@ -21,8 +21,8 @@ To further integrate this project in a bigger one, an alternate installation met
 
 .. code-block:: bash
 
-    git clone https://github.com/nebular/docker-compiler-ffmpeg
-    cd docker-compiler-ffmpeg
+    git clone https://github.com/nebular/docker-build-ffmpeg-srt
+    cd docker-build-ffmpeg-srt
     ./compile.sh
 
 This method does not erase the docker image, and creates the output in $PWD/out/usr/local/bin.
