@@ -4,10 +4,8 @@ FROM ubuntu:16.04
 # If the host OS is not linux, another container could instead use the binary.
 
 # Example build
-# docker build -t ffmpeg-compiler .
+./compile.sh
 
-# Example run
-# docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /root/bin/ffserver /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe && chown $(id -u):$(id -g) /host/ffserver"
 
 MAINTAINER hubald
 
@@ -49,7 +47,9 @@ RUN set -x \
 && make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
-&& echo COMPLETED PART 2
+&& echo "COMPLETED PART 2 (x265)"
+
+# Install mp3lame + opus
 
 RUN set -x \
 && echo install libmp3lame \
@@ -62,7 +62,21 @@ RUN set -x \
 && PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
-&& make clean
+&& make clean \
+&& echo "COMPLETED PART 3a (vpx)"
+
+# Install libsrt
+
+RUN set -x \
+&& echo install libsrt \
+&& apt-get -y install tclsh cmake libssl-dev \
+&& cd ~/ffmpeg_sources \
+&& git clone https://github.com/Haivision/srt \
+&& cd srt \
+&& ./configure \
+&& make \
+&& make install \
+&& echo "COMPLETED PART 3b (libsrt)"
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
@@ -88,6 +102,7 @@ RUN cd ~/ffmpeg_sources \
   --enable-libvpx \
   --enable-libx264 \
   --enable-libx265 \
+  --enable-libsrt \
   --enable-nonfree \
   --enable-vaapi \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \

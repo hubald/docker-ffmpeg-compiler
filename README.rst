@@ -2,18 +2,18 @@ Docker ffmpeg Compiler
 ======================
 
 Docker ffmpeg Compiler is a zero-set-up solution to install a fully featured ffmpeg binary on your linux system.
+All credit goes to the original author in https://github.com/srwareham/docker-ffmpeg-compiler (browse there for enhanced instructions), but this fork also adds HayVision libSRT support from the following fork: https://github.com/nebular/docker-build-ffmpeg-srt
 If you want to cut right to the chase and install ffmpeg and ffprobe, all at once, simply:
+
+Running without cloning
+-----------------------
+
+This is the original installation method from the forked project. It conveniently creates the ffmpeg binaries in the calling directory.
 
 .. code-block:: bash
 
     bash -c "$(wget https://raw.githubusercontent.com/hubald/docker-ffmpeg-compiler/master/install.sh -O -)"
-    
-or
-
-.. code-block:: bash
-
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/hubald/docker-ffmpeg-compiler/master/install.sh)"
-
+	
 The above downloads and executes a script that:
 
 #. Downloads a Dockerfile 
@@ -21,6 +21,20 @@ The above downloads and executes a script that:
 #. Copies static binaries for ffmpeg and ffprobe to a subfolder in the current working directory (with the uid / gid of the calling user)
 #. Deletes the ~1.2GB Docker image used to compile
 #. Leaves behind only the two static binaries mentioned above (each ~32MB)
+
+Running by cloning
+-------------------
+
+To further integrate this project in a bigger one, an alternate installation method is provided
+
+.. code-block:: bash
+
+    git clone https://github.com/hubald/docker-build-ffmpeg-srt
+    cd docker-ffmpeg-compiler
+    ./compile.sh
+
+This method does not erase the docker image, and creates the output in $PWD/out/usr/local/bin.
+
 
 Codecs and Features
 ===================
@@ -30,8 +44,9 @@ Video
 
 - `x264 <https://www.videolan.org/developers/x264.html>`_
 - `x265 <http://x265.org/>`_
-- `Theora <https://www.theora.org/>`_ 
+- `Theora <https://www.theora.org/>`_
 - `VP8 <http://www.webmproject.org/>`_ / `VP9 <http://www.webmproject.org/vp9/>`_
+- `SRT <https://github.com/Haivision/srt>`_
 
 Audio
 -----
@@ -39,7 +54,7 @@ Audio
 - `lame (mp3) <http://lame.sourceforge.net/>`_
 - `Vorbis <http://www.vorbis.com/>`_
 - `Opus <https://www.opus-codec.org/>`_
- 
+
 Other
 -----
 
