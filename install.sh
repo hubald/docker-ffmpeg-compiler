@@ -2,7 +2,7 @@
 #
 # Script to fetch the source code for docker-ffmpeg-compiler, build the image, copy the relevant binaries to the current working directory, and delete the image.
 #
-git clone https://github.com/srwareham/docker-ffmpeg-compiler.git
+git clone https://github.com/hubald/docker-ffmpeg-compiler.git
 cd docker-ffmpeg-compiler
 docker build -t ffmpeg-compiler .
 docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe"

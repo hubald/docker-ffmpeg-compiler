@@ -9,7 +9,7 @@ FROM ubuntu:16.04
 # Example run
 # docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /root/bin/ffserver /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe && chown $(id -u):$(id -g) /host/ffserver"
 
-MAINTAINER srwareham
+MAINTAINER hubald
 
 # Get the dependencies
 RUN set -x \
@@ -89,6 +89,7 @@ RUN cd ~/ffmpeg_sources \
   --enable-libx264 \
   --enable-libx265 \
   --enable-nonfree \
+  --enable-vaapi \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
 && make distclean \
