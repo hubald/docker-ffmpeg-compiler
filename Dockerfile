@@ -104,6 +104,7 @@ RUN cd ~/ffmpeg_sources \
   --enable-libx265 \
   --enable-libsrt \
   --enable-nonfree \
+  --enable-libpulse \
   --enable-vaapi \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
